@@ -30,15 +30,10 @@ public class ControllerSales {
 	
 	
 	@GetMapping
-	public Page<Sale> findSale( @RequestParam(value = "minDate", defaultValue = "")String minDate, @RequestParam(value = "maxDate", defaultValue = "" )
-	String maxDate, Pageable pageable){
+	public Page<Sale> findSale( Pageable pageable){
 
-		LocalDate today = LocalDate.ofInstant(Instant.now(), ZoneId.systemDefault());
-		LocalDate min = minDate.equals("") ? today.minusDays(365) : LocalDate.parse(maxDate); LocalDate.parse(minDate);
-		LocalDate max = maxDate.equals("") ? today : LocalDate.parse(maxDate);
 		
-		
-		return repository.findSales(min, max, pageable);
+		return repository.findAll(pageable);
 	}
 	
 	@GetMapping("/{id}/notification")
